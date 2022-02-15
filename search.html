@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Search Patient | Management</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h3 class="text-center">Search Patient</h3>
+        <div class="col-8 mx-auto mt-4">
+            <input type="email" class="form-control" placeholder="Email of the User" id="SearchBox">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 mx-auto mt-4 text-center">
+            <button type="button" id="SearchBTN" class="btn btn-primary btn-outline-dark">Search</button>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-10 mx-auto mt-4 text-center">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Hospital</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Registered On</th>
+                    </tr>
+                    </thead>
+                    <tbody id="AnswerData">
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>marksharma@globaldesign.in</td>
+                        <td>9876536447</td>
+                        <td>Hospital Name is Here</td>
+                        <td>Department Name is Here</td>
+                        <td>02 Feb, 2022</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    const Box = document.getElementById('SearchBox');
+    const current = window.location.href;
+    HospitalSelect.addEventListener('change', function () {
+        const id = HospitalSelect.value;
+        if (id == "") {
+            DepartmentSelect.style.display = 'none';
+            return false;
+        } else {
+            DepartmentSelect.style.display = 'block';
+        }
+        $.ajax({
+            type:"GET",
+            url:current + "department.php?hospital_id=" + id,
+            dataType: "text",
+            error: function (request, error) {
+                console.log(arguments);
+                console.log(" Error Occurred: " + error);
+            },
+            success: function(response){
+                $('#Department').empty().append('<option value="" selected>Select Department</option>');
+                const data = $.parseJSON(response);
+                $.each(data ,function(key, item){
+                    $('#Department').append('<option value="' + item.id + '">' + item.name + '</option>');
+
+                });
+            }
+        });
+    });
+</script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+-->
+</body>
+</html>

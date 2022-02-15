@@ -85,7 +85,7 @@ $data = GetHospitals();
 <!-- Optional JavaScript; choose one of the two! -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-    const DepartmentSelect = document.getElementById('Department');
+const DepartmentSelect = document.getElementById('Department');
     DepartmentSelect.style.display = 'none';
     const HospitalSelect = document.getElementById('Hospital');
     const current = window.location.href;
