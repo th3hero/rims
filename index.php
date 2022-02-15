@@ -72,8 +72,8 @@ $data = GetHospitals();
             <span class="text-danger" id="DepartmentFeedback"><?php if (isset($errors['department'])) { echo $errors['department']; } ?></span>
         </div>
     </div>
-    <div class="container mt-4 text-center">
-        <button type="button" class="btn btn-primary btm-sm" id="SubmitBTN">Submit</button>
+    <div class="container mt-8 text-center">
+        <button type="button" class="btn btn-primary btm-sm" id="SubmitBTN">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="search.html" class="btn-secondary btn">Search Patient</a>
     </div>
     </form>
     <div class="container mt-3 text-center">
@@ -88,7 +88,6 @@ $data = GetHospitals();
 const DepartmentSelect = document.getElementById('Department');
     DepartmentSelect.style.display = 'none';
     const HospitalSelect = document.getElementById('Hospital');
-    const current = window.location.href;
     HospitalSelect.addEventListener('change', function () {
         const id = HospitalSelect.value;
         if (id == "") {
@@ -99,7 +98,7 @@ const DepartmentSelect = document.getElementById('Department');
         }
         $.ajax({
             type:"GET",
-            url:current + "department.php?hospital_id=" + id,
+            url: "http://localhost/rims/department.php?hospital_id=" + id,
             dataType: "text",
             error: function (request, error) {
                 console.log(arguments);

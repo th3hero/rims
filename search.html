@@ -19,8 +19,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4 mx-auto mt-4 text-center">
-            <button type="button" id="SearchBTN" class="btn btn-primary btn-outline-dark">Search</button>
+        <div class="col-8 mx-auto mt-4 text-center">
+            <button type="button" id="SearchBTN" class="btn btn-primary btn-outline-dark">Search</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.php" class="btn-secondary btn">Register Patient</a>
         </div>
     </div>
 
@@ -39,17 +39,7 @@
                         <th scope="col">Registered On</th>
                     </tr>
                     </thead>
-                    <tbody id="AnswerData">
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>marksharma@globaldesign.in</td>
-                        <td>9876536447</td>
-                        <td>Hospital Name is Here</td>
-                        <td>Department Name is Here</td>
-                        <td>02 Feb, 2022</td>
-                    </tr>
-                    </tbody>
+                    <tbody id="AnswerData"></tbody>
                 </table>
             </div>
         </div>
@@ -60,28 +50,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
     const Box = document.getElementById('SearchBox');
-    const current = window.location.href;
-    HospitalSelect.addEventListener('change', function () {
-        const id = HospitalSelect.value;
-        if (id == "") {
-            DepartmentSelect.style.display = 'none';
+    const Button = document.getElementById('SearchBTN');
+    const Answers = document.getElementById('AnswerData');
+    Button.addEventListener('click', function () {
+        const data = Box.value;
+        if (data == "") {
             return false;
-        } else {
-            DepartmentSelect.style.display = 'block';
         }
         $.ajax({
             type:"GET",
-            url:current + "department.php?hospital_id=" + id,
+            url:"http://localhost/rims/find.php?search=" + data,
             dataType: "text",
             error: function (request, error) {
                 console.log(arguments);
                 console.log(" Error Occurred: " + error);
             },
             success: function(response){
-                $('#Department').empty().append('<option value="" selected>Select Department</option>');
+                $('#AnswerData').empty();
                 const data = $.parseJSON(response);
                 $.each(data ,function(key, item){
-                    $('#Department').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    $('#AnswerData').append('<tr><th scope="row">' + item.count + '</th><td>' + item.name + '</td><td>' + item.email + '</td><td>' + item.phone + '</td><td>' + item.hospital + '</td><td>' + item.department + '</td><td>' + item.date + '</td></tr>');
 
                 });
             }

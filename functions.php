@@ -42,3 +42,25 @@ function CheckEmailAlreadyExist($email) {
     }
     return false;
 }
+
+function SearchUser($email) {
+    $connect = ConnectToDB();
+    $query = "SELECT * FROM `patients` WHERE `email` like '%' '". $email ."' '%'";
+    return $connect->query($query);
+}
+
+function GetHospitalNameUsingID($hospitalID) {
+    $connect = ConnectToDB();
+    $query = "SELECT `name` FROM `hospitals` WHERE `id` = '". $hospitalID ."'";
+    $result = $connect->query($query);
+    $hospitalName = $result->fetch_assoc();
+    return $hospitalName['name'];
+}
+
+function GetDepartmentNameUsingID($departmentID) {
+    $connect = ConnectToDB();
+    $query = "SELECT `department` FROM `departments` WHERE `id` = '". $departmentID ."'";
+    $result = $connect->query($query);
+    $departmentName = $result->fetch_assoc();
+    return $departmentName['department'];
+}
