@@ -17,6 +17,9 @@
         <div class="col-8 mx-auto mt-4">
             <input type="email" class="form-control" placeholder="Email of the User" id="SearchBox">
         </div>
+        <div class="col-8 mx-auto mt-4">
+            <input type="text" class="form-control" placeholder="Phone of the User" id="PhoneBox">
+        </div>
     </div>
     <div class="row">
         <div class="col-8 mx-auto mt-4 text-center">
@@ -50,16 +53,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
     const Box = document.getElementById('SearchBox');
+    const Phone = document.getElementById('PhoneBox');
     const Button = document.getElementById('SearchBTN');
-    const Answers = document.getElementById('AnswerData');
     Button.addEventListener('click', function () {
         const data = Box.value;
-        if (data == "") {
-            return false;
-        }
+        const phone = Phone.value;
         $.ajax({
             type:"GET",
-            url:"http://localhost/rims/find.php?search=" + data,
+            url:"http://localhost/rims/find.php?search=" + data + "&phone=" + phone,
             dataType: "text",
             error: function (request, error) {
                 console.log(arguments);

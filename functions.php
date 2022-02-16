@@ -4,7 +4,7 @@ $info = [
     'host' => 'localhost',  //Change with your host address or keep it localhost if hosted on same server.
     'user' => 'root',   //Change with the username.
     'password' => '',   //Change with the password of user.
-    'database' => 'test' //Name of your database.
+    'database' => 'rims' //Name of your database.
 ];
 
 function ConnectToDB() {
@@ -43,9 +43,9 @@ function CheckEmailAlreadyExist($email) {
     return false;
 }
 
-function SearchUser($email) {
+function SearchUser($email, $phone) {
     $connect = ConnectToDB();
-    $query = "SELECT * FROM `patients` WHERE `email` like '%' '". $email ."' '%'";
+    $query = "SELECT * FROM `patients` WHERE `email` like '%' '". $email ."' '%' AND `phone` like '%' '". $phone ."' '%'";
     return $connect->query($query);
 }
 

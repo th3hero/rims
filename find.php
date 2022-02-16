@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 require 'functions.php';
 
 $search = CleanInput($_GET['search']);
-$data = SearchUser($search);
+$phone = CleanInput($_GET['phone']);
+$data = SearchUser($search, $phone);
 $list = [];
 $i = 0;
 while ($content = $data->fetch_assoc()) {
